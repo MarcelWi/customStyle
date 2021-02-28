@@ -9,29 +9,20 @@
      * @param mediaQuerry?: string (optional), media querry for given stylesheet, example: "max-width: 909px"
      * @returns void
  */
-var addCustomStyle = /** @class */ (function () {
-    function addCustomStyle(styleidentifier, selector, attributes, mediaQuerry) {
-        this.styleidentifier = styleidentifier;
-        this.selector = selector;
-        this.attributes = attributes;
-        this.mediaQuerry = mediaQuerry;
-    }
-    addCustomStyle.prototype.get = function () {
-        var head = document.head || document.getElementsByTagName('head')[0];
-        var style = document.createElement('style');
-        var styleCSS = this.selector + " " + this.attributes;
-        var styleCSSMQ = "@media only screen and (" + this.mediaQuerry + ") {" + styleCSS + "}";
-        styleCSS = this.mediaQuerry ? styleCSSMQ : styleCSS;
-        /**
-         * create inline style in <head> block
-         * example: <style id="myStyle"> .someClassName { background-color: #cccccc} </style>
-         */
-        style.setAttribute('type', 'text/css');
-        style.setAttribute('media', 'screen');
-        style.id = this.styleidentifier;
-        style.appendChild(document.createTextNode(styleCSS));
-        head.appendChild(style);
-    };
-    return addCustomStyle;
-}());
-new addCustomStyle('myStyle', 'body', '{background-color: red;}', 'max-width: 909px').get();
+function addCustomStyle(styleidentifier, selector, attributes, mediaQuerry) {
+    var head = document.head || document.getElementsByTagName('head')[0];
+    var style = document.createElement('style');
+    var styleCSS = selector + " " + attributes;
+    var styleCSSMQ = "@media only screen and (" + mediaQuerry + ") {" + styleCSS + "}";
+    styleCSS = mediaQuerry ? styleCSSMQ : styleCSS;
+    /**
+     * create inline style in <head> block
+     * example: <style id="myStyle"> .someClassName { background-color: #cccccc} </style>
+     */
+    style.setAttribute('type', 'text/css');
+    style.setAttribute('media', 'screen');
+    style.id = this.styleidentifier;
+    style.appendChild(document.createTextNode(styleCSS));
+    head.appendChild(style);
+}
+addCustomStyle('myStyle', 'body', '{background-color: blue;}', 'max-width: 909px');
